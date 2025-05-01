@@ -1,0 +1,155 @@
+==========================================
+CLI : https://docs.databricks.com/aws/en/dev-tools/cli
+API : https://docs.databricks.com/api/workspace/introduction
+==========================================
+
+===================
+DATABRICKS CLI
+===================
+
+The Databricks CLI is a command-line interface that allows you to interact with Databricks from your terminal.
+
+-------------------
+INSTALLATION
+-------------------
+pip install databricks-cli
+
+-------------------
+AUTHENTICATION METHODS
+-------------------
+* Personal Access Token (PAT)
+* Azure Active Directory (AAD) token
+* OAuth token
+
+-------------------
+KEY COMMANDS
+-------------------
+
+WORKSPACE MANAGEMENT
+-------------------
+databricks workspace ls
+databricks workspace mkdirs
+databricks workspace import
+databricks workspace export
+
+JOBS MANAGEMENT
+-------------------
+databricks jobs list
+databricks jobs create
+databricks jobs run-now
+
+CLUSTERS MANAGEMENT
+-------------------
+databricks clusters list
+databricks clusters create
+databricks clusters start
+databricks clusters delete
+
+LIBRARIES MANAGEMENT
+-------------------
+databricks libraries list
+databricks libraries install
+databricks libraries uninstall
+
+-------------------
+CONFIGURATION
+-------------------
+* Create configuration file at ~/.databrickscfg
+* Configure multiple profiles for different environments
+
+===================
+DATABRICKS REST API
+===================
+
+The Databricks REST API provides programmatic access to Databricks resources.
+
+-------------------
+AUTHENTICATION METHODS
+-------------------
+* Personal Access Token (PAT)
+* Azure Active Directory (AAD) token
+* OAuth token
+
+-------------------
+API ENDPOINTS
+-------------------
+
+WORKSPACE API
+-------------------
+* List workspace items
+* Import/Export notebooks
+* Create directories
+
+JOBS API
+-------------------
+* Create/Update/Delete jobs
+* Run jobs
+* Get job status
+
+CLUSTERS API
+-------------------
+* Create/Start/Terminate clusters
+* List cluster information
+* Edit cluster configurations
+
+LIBRARIES API
+-------------------
+* Install/Uninstall libraries
+* List installed libraries
+
+DBFS API
+-------------------
+* Upload/Download files
+* List files
+* Create directories
+
+-------------------
+EXAMPLE API CALLS
+-------------------
+import requests
+
+# List clusters
+response = requests.get(
+    'https://<workspace-url>/api/2.0/clusters/list',
+    headers={'Authorization': 'Bearer <token>'}
+)
+
+# Create a job
+response = requests.post(
+    'https://<workspace-url>/api/2.0/jobs/create',
+    headers={'Authorization': 'Bearer <token>'},
+    json={
+        "name": "My Job",
+        "new_cluster": {
+            "spark_version": "7.3.x-scala2.12",
+            "node_type_id": "Standard_DS3_v2",
+            "num_workers": 2
+        },
+        "notebook_task": {
+            "notebook_path": "/Users/user@example.com/MyNotebook"
+        }
+    }
+)
+
+-------------------
+RATE LIMITS
+-------------------
+* API calls are rate-limited
+* Different endpoints have different limits
+* Implement retry logic for handling rate limits
+
+-------------------
+ERROR HANDLING
+-------------------
+* HTTP status codes
+* Error messages in response body
+* Retry mechanisms for transient failures
+
+-------------------
+BEST PRACTICES
+-------------------
+* Use environment variables for sensitive information
+* Implement proper error handling
+* Use pagination for large result sets
+* Cache responses when appropriate
+* Monitor API usage and limits
